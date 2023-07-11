@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "marked": "^5.0.1",
+    "marked-mangle": "^1.0.1",
     "prompt-sync": "^4.2.0"
   }
 }

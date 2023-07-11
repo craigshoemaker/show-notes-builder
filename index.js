@@ -7,7 +7,7 @@ const guestName = args[0];
 
 let data = fs.readFileSync(path.join(__dirname, 'data', 'transcript.txt'), 'utf-8');
 data = data.replace(/Speaker 1/gm, '### Craig Shoemaker');
-data = data.replace(/Speaker 2/gm, `### ${ guestName }`);
+data = data.replace(/Speaker 2/gm, `### ${guestName}`);
 data = data.replace(/Speaker ?\r\n\r\n.*\r\n\r\n/gm, ''); // unidentified speaker
 
 const segments = data.split('\n');
@@ -31,6 +31,9 @@ const getMarkup = (html) => `
 <div>
 <textarea style="width:90%;margin:2em;height:9em;" onclick="this.select();">
 &lt;details&gt;&lt;summary&gt;Click to view transcript&lt;/summary&gt;
+&lt;blockquote&gt;
+This is an unedited, machine-generated transcript. There are spelling and grammatical errors to follow.
+&lt;/blockquote&gt;
 ${html}
 &lt;/details&gt;
 </textarea>
@@ -45,5 +48,5 @@ try {
   result.push(getMarkup(marked.parse(data)));
   fs.writeFileSync(path.join(__dirname, 'data', 'markup.html'), result.join('\n'));
 } catch (e) {
-  console.error(JSON.stringify(e));
+  console.log(`Error: ${JSON.stringify(e)}`);
 }
