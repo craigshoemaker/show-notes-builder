@@ -3,11 +3,20 @@ const marked = require('marked');
 const path = require('path');
 
 const args = process.argv.slice(2);
-const guestName = args[0];
+const speaker1 = args[0];
+const speaker2 = args[1];
+
+// if only one name is passed in, 
+// assume Speaker 1 is Craig and 
+// Speaker 2 is the guest 
+if(speaker2.length === 0) {
+  speaker1 = "Craig Shoemaker";
+  speaker2 = args[0];
+}
 
 let data = fs.readFileSync(path.join(__dirname, 'data', 'transcript.txt'), 'utf-8');
-data = data.replace(/Speaker 1/gm, '### Craig Shoemaker');
-data = data.replace(/Speaker 2/gm, `### ${guestName}`);
+data = data.replace(/Speaker 1/gm, `### ${speaker1}`);
+data = data.replace(/Speaker 2/gm, `### ${speaker2}`);
 data = data.replace(/Speaker ?\r\n\r\n.*\r\n\r\n/gm, ''); // unidentified speaker
 
 const segments = data.split('\n');
